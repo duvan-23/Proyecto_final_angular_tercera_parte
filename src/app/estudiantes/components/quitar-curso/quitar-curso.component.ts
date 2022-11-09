@@ -23,7 +23,7 @@ export class QuitarCursoComponent implements OnInit {
   // cursos: Curso[]=cursos;
   cursos2!: Curso[];
   constructor(
-    public dialogRef: MatDialogRef<AgregarCursoComponent>,
+    public dialogRef: MatDialogRef<QuitarCursoComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data:any,
     private cursoService: CursosService,

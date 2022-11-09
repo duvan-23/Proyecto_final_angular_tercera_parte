@@ -102,24 +102,6 @@ export class EstudiantesComponent implements OnInit, AfterViewInit  {
   }
   verEstudiante(id:number){
     this.router.navigate(['estudiantes/vista',{id:id}])
-    let estudiante;
-    // this.estudianteService.obtenerEstudiante(id).subscribe((data)=>{
-    //   estudiante=data['0'];
-    // });
-    // let dialog =this.dialog.open(EditarEstudiantesComponent,{
-    //   width: '550px',
-    //   panelClass: 'custom-dialog-container',
-    //   data: estudiante
-    // });
-    // dialog.beforeClosed().subscribe(res=>{
-    //   if(res.nombre){
-    //     this.estudianteService.editarEstudiante(res);
-    //     this.dataSource.paginator = this.paginator;
-    //     this._snackBar.open(`Edito el estudiante ${res.nombre} ${res.apellido} Exitosamente`, "Cerrar", {
-    //       duration: 3000
-    //     });
-    //   }
-    // })
   }
   eliminarEstudiante(id:number){
     this.estudianteService.obtenerEstudiante(id).subscribe((data)=>{

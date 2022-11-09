@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { VistaComponent } from './components/vista/vista.component';
 import { InicioComponent } from './components/inicio/inicio.component';
+import { QuitarEstudianteComponent } from './components/quitar-estudiante/quitar-estudiante.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { InicioComponent } from './components/inicio/inicio.component';
     VistaComponent,
     FiltroCursosPipe,
     InicioComponent,
+    QuitarEstudianteComponent,
   ],
   imports: [
     CommonModule,

@@ -29,7 +29,6 @@ export class AgregarCursoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.dataEstudiante);
     this.cursos$ = this.cursoService.obtenerCursos();
     this.cursos$.subscribe((data)=>{
       this.cursos2=data.filter(val => val.inscripcionAbierta === true).map(data => data);

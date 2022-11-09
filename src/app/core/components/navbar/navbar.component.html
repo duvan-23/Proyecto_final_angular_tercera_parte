@@ -24,7 +24,7 @@
           <li class="nav-item mb-3 item" *ngIf="session.sessionActiva">
             <a class="nav-link" mat-button routerLink="cursos/lista">Cursos</a>
           </li>
-          <li class="nav-item mb-3 item" *ngIf="session.sessionActiva && session.usuarioActivo?.superAdmin">
+          <li class="nav-item mb-3 item" *ngIf="session.sessionActiva">
             <a class="nav-link" mat-button  routerLink="usuarios">Usuarios</a>
           </li>
         </ul>

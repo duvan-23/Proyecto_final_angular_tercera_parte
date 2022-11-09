@@ -111,6 +111,8 @@ export class ClasesComponent implements OnInit {
         }
       })
     });
-
+  }
+  mostrarCurso(id:number){
+    this.router.navigate(['cursos/vista',{id:id}]);
   }
 }

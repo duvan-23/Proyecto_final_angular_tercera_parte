@@ -55,8 +55,8 @@ export class EstudiantesService {
       this.estudiantesSubject.next(this.listaEstudiantes);
     }
   }
-  eliminarEstudianteCurso(id: number,curso:string,id_estudiante:number){
-    let indice = this.listaEstudiantes.findIndex((e: Estudiantes) =>e.id === id_estudiante);
+  eliminarEstudianteCurso(id: number,curso:string){
+    let indice = this.listaEstudiantes.findIndex((e: Estudiantes) =>e.id === id);
     let estudiante=this.obtenerEstudiantes().pipe(
       map((estudiante: Estudiantes[]) => estudiante.filter((estudiante:Estudiantes)=> estudiante.id ===id))
     )

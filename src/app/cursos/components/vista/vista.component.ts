@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CursosService } from 'src/app/clases/services/cursos.service';
 import { EstudiantesService } from 'src/app/estudiantes/services/estudiantes.service';
 import { Curso } from 'src/app/models/curso';
 import { Estudiantes } from 'src/app/models/estudiantes';
+import { QuitarEstudianteComponent } from '../quitar-estudiante/quitar-estudiante.component';
 
 @Component({
   selector: 'app-vista',
@@ -13,6 +16,8 @@ import { Estudiantes } from 'src/app/models/estudiantes';
 })
 export class VistaComponent implements OnInit {
   id!:number;
+  curso_edi!:Estudiantes;
+  index_edi!:number;
   curso$!: Observable<Curso>;
   estudiante$!: Observable<Estudiantes[]>;
   estudiante!: Estudiantes[];
@@ -22,6 +27,8 @@ export class VistaComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private cursoService: CursosService,
     private estudianteService: EstudiantesService,
+    private dialog: MatDialog,private _snackBar: MatSnackBar,
+    private router: Router
 
   ) { }
 
@@ -39,6 +46,7 @@ export class VistaComponent implements OnInit {
 
         this.nombreCurso=""+data2.nombre+" "+data2.comision;
         data.forEach((element,index) => {
+          
           element.nombre_curso.forEach((element2) => {
             if(element2==this.nombreCurso){
               this.estudianteService.obtenerEstudiante(data[index].id).subscribe((data)=>{this.estudiante2.push(data)});
@@ -49,6 +57,49 @@ export class VistaComponent implements OnInit {
       });
     })
 
+  }
+  quitarCurso(curso:string){
+    let dialog =this.dialog.open(QuitarEstudianteComponent,{
+      width: '550px',
+      panelClass: 'custom-dialog-container',
+      data: {estudiante:this.estudiante2}
+    });
+    dialog.beforeClosed().subscribe(res=>{
+      if(res.id_estudiante){
+        this.estudianteService.obtenerEstudiante(res.id_estudiante).subscribe((data) => {
+          data.forEach(element => {
+            let count=0;
+            element.nombre_curso.forEach((element2,index) => {
+              if(element2 ==curso && count==0){
+                count++;
+                this.curso_edi=element;
+                this.index_edi=index;
+              }
+            });
+          });
+        });
+        this.curso_edi.nombre_curso.splice(this.index_edi,1);
+        this.estudiante$ = this.estudianteService.obtenerEstudiantes();
+
+        this.estudiante$.subscribe((data)=>{
+          this.estudiante2=[];
+
+          this.cursoService.obtenerCurso(this.id).subscribe((data2)=>{
+
+            this.nombreCurso=""+data2.nombre+" "+data2.comision;
+            data.forEach((element,index) => {
+              
+              element.nombre_curso.forEach((element2) => {
+                if(element2==this.nombreCurso){
+                  this.estudianteService.obtenerEstudiante(data[index].id).subscribe((data)=>{this.estudiante2.push(data)});
+                }
+              });
+            });
+
+          });
+        })
+      }
+    })
   }
 
 }
