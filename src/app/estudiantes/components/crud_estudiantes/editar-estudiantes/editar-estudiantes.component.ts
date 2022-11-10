@@ -20,7 +20,7 @@ export class EditarEstudiantesComponent implements OnInit {
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data:any
     ) {
-    this.formularioEstudianteEditar = fb.group({
+    this.formularioEstudianteEditar = new FormGroup({
       nombre: new FormControl('',[Validators.required]),
       correo: new FormControl('',[Validators.pattern('^[A-Za-z0-9]+@[A-Za-z]+\\.[A-Za-z]{2,3}$'), Validators.required]),
       apellido: new FormControl('',[Validators.required]),
@@ -36,6 +36,11 @@ export class EditarEstudiantesComponent implements OnInit {
   guardar(){
     this.formularioEstudianteEditar.value.nombre_curso=this.selectedOption;
     this.dialogRef.close(this.formularioEstudianteEditar.value);
+  }
+
+  leer(){
+    this.formularioEstudianteEditar.value.nombre_curso=this.selectedOption;
+    return this.formularioEstudianteEditar.value;
   }
 
 }

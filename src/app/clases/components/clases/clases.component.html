@@ -1,4 +1,4 @@
-<h1 class="mt-4" [appTitulos]='false'>Tabla de Clases</h1>
+<h1 class="mt-4" [appTitulos]='false'>Tabla de Cursos</h1>
 <br><ng-container *ngIf="session$ | async as session">
   <button mat-raised-button color="primary" (click)="agregarClase()" *ngIf="session.usuarioActivo?.admin">Agregar Clase</button>
 </ng-container>

@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { SessionService } from 'src/app/core/services/session.service';
 import { Estudiantes } from 'src/app/models/estudiantes';
+import { Session } from 'src/app/models/sesion';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { AgregarCursoComponent } from '../agregar-curso/agregar-curso.component';
 import { QuitarCursoComponent } from '../quitar-curso/quitar-curso.component';
@@ -19,14 +21,17 @@ export class VistaEstudianteComponent implements OnInit {
   curso_edi!:Estudiantes;
   index_edi!:number;
   listaEstudiantes$!: Observable<Estudiantes[]>;
+  session$!:Observable<Session>;
   constructor(
     private activateRoute: ActivatedRoute,
     private estudianteService: EstudiantesService,
     private dialog: MatDialog,private _snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
+    this.session$ = this.sessionService.obtenerSession();
     this.activateRoute.paramMap.subscribe((parametros)=>{
       this.id= parseInt(parametros.get("id") || '0');
       this.listaEstudiantes$ = this.estudianteService.obtenerEstudiante(this.id);

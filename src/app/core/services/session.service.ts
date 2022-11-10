@@ -30,8 +30,6 @@ export class SessionService {
     this.usuario.subscribe((data:any)=>{
       this.usuario=data[0];
       if(this.usuario){
-        console.log(this.usuario.contrasena );
-        console.log(contrasena );
         if(this.usuario.contrasena  == contrasena){
           const session: Session = {
             sessionActiva: true,
